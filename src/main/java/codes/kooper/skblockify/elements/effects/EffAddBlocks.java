@@ -24,13 +24,12 @@ import java.util.Set;
 @Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
 @Since("1.0.0")
 public class EffAddBlocks extends Effect {
-
-    static {
-        Skript.registerEffect(EffAddBlocks.class, "add blocks [from] %% to [view] %view%");
-    }
-
     private Expression<Location> locations;
     private Expression<View> view;
+
+    static {
+        Skript.registerEffect(EffAddBlocks.class, "add blocks [from] %locations% to [view] %view%");
+    }
 
     @Override
     protected void execute(@NotNull Event event) {
