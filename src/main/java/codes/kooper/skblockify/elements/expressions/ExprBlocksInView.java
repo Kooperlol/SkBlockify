@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Name("Blocks in View")
-@Description("Get all blocks in a view as block data.")
+@Description("Get all blocks in a view as block data. Call asynchronously if the view is large.")
 @Examples("set {_blocks::*} to all blocks in view {_view}")
 @Since("1.0.0")
 public class ExprBlocksInView extends SimpleExpression<BlockData> {

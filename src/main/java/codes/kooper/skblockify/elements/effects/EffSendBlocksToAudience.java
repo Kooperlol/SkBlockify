@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Send Blocks To Audience")
-@Description("Send blocks to an audience in a stage")
+@Description("Send blocks to an audience in a stage. Call asynchronously.")
 @Examples("send blocks to audience in stage \"stage\"")
 @Since("1.0.0")
 public class EffSendBlocksToAudience extends Effect {

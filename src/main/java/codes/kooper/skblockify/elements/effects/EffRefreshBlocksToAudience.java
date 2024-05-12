@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 
 @Name("Refresh Blocks To Audience")
-@Description("Refreshes blocks to audience in a stage at location(s).")
+@Description("Refreshes blocks to audience in a stage at location(s). Should be called asynchronously if you're refreshing a large amount of blocks.")
 @Examples("refresh blocks to audience in stage {_stage} at {_locations::*}")
 @Since("1.0.0")
 public class EffRefreshBlocksToAudience extends Effect {

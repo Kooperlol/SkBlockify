@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Reset Blocks in View")
-@Description("Reset certain blocks in a view to a block from its pattern.")
+@Description("Reset certain blocks in a view to a block from its pattern. Call asynchronously if you have a lot of blocks to reset.")
 @Examples("reset {_locations::*} in view {_view}")
 @Since("1.0.0")
 public class EffResetBlocks extends Effect {

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Reset All Blocks in View")
-@Description("Reset all blocks in a view to a block from its pattern.")
+@Description("Reset all blocks in a view to a block from its pattern. Call Asynchronously")
 @Examples("reset blocks in view {_view}")
 @Since("1.0.0")
 public class EffResetAllBlocks extends Effect {

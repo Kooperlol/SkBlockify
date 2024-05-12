@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Hide View")
-@Description("Hides a view from player(s) in the stage's audience.")
+@Description("Hides a view from player(s) in the stage's audience. Call asynchronously.")
 @Examples({"hide view {_view} from {_player}", "hide view {_view} from all players in {_stage}'s audience"})
 @Since("1.0.0")
 public class EffHideView extends Effect {

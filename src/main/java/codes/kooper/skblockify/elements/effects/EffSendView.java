@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Send View")
-@Description("Send a view to player(s) in the stage's audience.")
+@Description("Send a view to player(s) in the stage's audience. Call asynchronously.")
 @Examples({"send view {_view} to {_player}", "send view {_view} to all players in {_stage}'s audience"})
 @Since("1.0.0")
 public class EffSendView extends Effect {

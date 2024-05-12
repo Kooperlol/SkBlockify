@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Set Blocks in View")
-@Description("Set blocks in a view with a given material.")
+@Description("Set blocks in a view with a given material. Call asynchronously if setting a large amount of blocks.")
 @Examples("set blocks at {_locations::*} to stone in view {view}")
 @Since("1.0.0")
 public class EffSetBlocks extends Effect {
