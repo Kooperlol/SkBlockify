@@ -16,33 +16,33 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@Name("Add Player")
-@Description("Adds player(s) to a stage")
-@Examples("on join: add player to stage {_lobby}")
+@Name("Reset Mining Speed")
+@Description("Reset the mining speed of a player for a stage.")
+@Examples({"reset the mining speed of all players for stage {_stage}", "reset the mining speed of player for stage {_stage}"})
 @Since("1.0.0")
-public class EffAddPlayerStage extends Effect {
-    private Expression<Stage> stage;
+public class EffResetMiningSpeed extends Effect {
     private Expression<Player> player;
+    private Expression<Stage> stage;
 
     static {
-        Skript.registerEffect(EffAddPlayerStage.class, "add %player% to audience of stage %stage%", "add %player% to stage %stage%'s audience", "add %player% to stage %stage%");
+        Skript.registerEffect(EffResetMiningSpeed.class, "reset [the] mining speed of %players% for stage %stage%");
     }
 
     @Override
     protected void execute(@NotNull Event event) {
+        Player[] player = this.player.getAll(event);
         Stage stage = this.stage.getSingle(event);
-        Player[] players = this.player.getAll(event);
         if (stage == null) {
             return;
         }
-        for (Player p : players) {
-            stage.getAudience().addPlayer(p);
+        for (Player p : player) {
+            stage.getAudience().resetMiningSpeed(p);
         }
     }
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
-        return "Add player to stage with expression: " + stage.toString(event, debug) + " and player: " + player.toString(event, debug);
+        return "Reset mining speed with player expression: " + player.toString(event, debug) + " and stage expression: " + stage.toString(event, debug);
     }
 
     @SuppressWarnings("unchecked")

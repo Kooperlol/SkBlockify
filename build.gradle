@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'codes.kooper'
-version = '1.0-SNAPSHOT'
+version = '1.0.1-beta'
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.28'
     compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
     implementation 'com.github.SkriptLang:Skript:2.8.4'
-    compileOnly 'com.github.Kooperlol:Blockify:1.0.9-beta'
+    compileOnly 'com.github.Kooperlol:Blockify:1.1.0-beta'
 }
 
 def targetJavaVersion = 17

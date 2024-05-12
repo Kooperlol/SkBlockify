@@ -10,51 +10,41 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
-import codes.kooper.blockify.types.BlockifyPosition;
-import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.HashSet;
-import java.util.Set;
 
-@Name("Add Blocks")
-@Description("Add blocks to a view")
-@Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
+@Name("Reset All Blocks in View")
+@Description("Reset all blocks in a view to a block from its pattern.")
+@Examples("reset blocks in view {_view}")
 @Since("1.0.0")
-public class EffAddBlocks extends Effect {
-    private Expression<Location> locations;
+public class EffResetAllBlocks extends Effect {
     private Expression<View> view;
 
     static {
-        Skript.registerEffect(EffAddBlocks.class, "add blocks [from] %locations% to [view] %view%");
+        Skript.registerEffect(EffResetAllBlocks.class, "reset [all] blocks in view %view%");
     }
 
     @Override
     protected void execute(@NotNull Event event) {
-        Set<BlockifyPosition> positions = new HashSet<>();
-        for (Location location : this.locations.getAll(event)) {
-            positions.add(BlockifyPosition.fromLocation(location));
-        }
         View view = this.view.getSingle(event);
-        if (positions.isEmpty() || view == null) {
+        if (view == null) {
             return;
         }
-        view.addBlocks(positions);
+        view.resetViewBlocks();
     }
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
-        return "Add blocks to view with expression location(s): " + locations.toString(event, debug) + " and view: " + view.toString(event, debug);
+        return "Reset blocks in view with expression view: " + view.toString(event, debug);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?> @NotNull [] expressions, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
-        locations = (Expression<Location>) expressions[0];
-        view = (Expression<View>) expressions[1];
-        return true;
+        view = (Expression<View>) expressions[0];
+        return view != null;
     }
 
 }

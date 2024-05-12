@@ -12,6 +12,7 @@ import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import codes.kooper.blockify.types.BlockifyPosition;
 import org.bukkit.Location;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,16 +20,17 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Name("Add Blocks")
-@Description("Add blocks to a view")
-@Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
+@Name("Set Blocks in View")
+@Description("Set blocks in a view with a given material.")
+@Examples("set blocks at {_locations::*} to stone in view {view}")
 @Since("1.0.0")
-public class EffAddBlocks extends Effect {
+public class EffSetBlocks extends Effect {
     private Expression<Location> locations;
     private Expression<View> view;
+    private Expression<BlockData> blockData;
 
     static {
-        Skript.registerEffect(EffAddBlocks.class, "add blocks [from] %locations% to [view] %view%");
+        Skript.registerEffect(EffSetBlocks.class, "set blocks at %locations% to %blockdata% in view %view%");
     }
 
     @Override
@@ -38,23 +40,25 @@ public class EffAddBlocks extends Effect {
             positions.add(BlockifyPosition.fromLocation(location));
         }
         View view = this.view.getSingle(event);
-        if (positions.isEmpty() || view == null) {
+        BlockData blockData = this.blockData.getSingle(event);
+        if (positions.isEmpty() || view == null || blockData == null) {
             return;
         }
-        view.addBlocks(positions);
+        view.setBlocks(positions, blockData);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
-        return "Add blocks to view with expression location(s): " + locations.toString(event, debug) + " and view: " + view.toString(event, debug);
+        return "Add blocks to view with expression location(s): " + locations.toString(event, debug) + " and view: " + view.toString(event, debug) + " and blockdata: " + blockData.toString(event, debug);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?> @NotNull [] expressions, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
         locations = (Expression<Location>) expressions[0];
-        view = (Expression<View>) expressions[1];
-        return true;
+        blockData = (Expression<BlockData>) expressions[1];
+        view = (Expression<View>) expressions[2];
+        return (locations != null && blockData != null && view != null);
     }
 
 }

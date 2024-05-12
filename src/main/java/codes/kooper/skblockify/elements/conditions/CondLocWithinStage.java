@@ -17,20 +17,27 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Location Within Stage")
-@Description("Checks if a location is within a stage")
+@Description("Checks if location(s) are within a stage")
 @Examples("if location of player is within stage \"lobby\": send \"You're in the lobby!\" to player")
 @Since("1.0.0")
-public class CondLocWIthinStage extends Condition {
+public class CondLocWithinStage extends Condition {
     private Expression<Location> location;
     private Expression<Stage> stage;
 
     static {
-        Skript.registerCondition(CondLocWIthinStage.class, "location %location% is within stage %stage%");
+        Skript.registerCondition(CondLocWithinStage.class, "location %locations% is within stage %stage%");
     }
 
     @Override
     public boolean check(@NotNull Event event) {
-        return stage.check(event, stage -> location.check(event, stage::isLocationWithin));
+        return stage.check(event, stage -> {
+            for (Location loc : location.getAll(event)) {
+                if (!stage.isLocationWithin(loc)) {
+                    return false;
+                }
+            }
+            return true;
+        });
     }
 
     @Override

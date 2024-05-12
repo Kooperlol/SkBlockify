@@ -24,8 +24,8 @@ public class Types {
                     @Override
                     @Nullable
                     public Stage parse(String input, ParseContext context) {
-                        if (!Blockify.instance.getStageManager().hasStage(input)) return null;
-                        return Blockify.instance.getStageManager().getStage(input);
+                        if (!Blockify.getInstance().getStageManager().hasStage(input)) return null;
+                        return Blockify.getInstance().getStageManager().getStage(input);
                     }
 
                     @Override

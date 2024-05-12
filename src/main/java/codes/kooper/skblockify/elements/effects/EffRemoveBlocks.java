@@ -19,16 +19,16 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Name("Add Blocks")
-@Description("Add blocks to a view")
-@Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
+@Name("Remove Blocks")
+@Description("Removes blocks to a view")
+@Examples("on blockify break: remove blocks from (locations of diamond block in player's chunk) from view event-view")
 @Since("1.0.0")
-public class EffAddBlocks extends Effect {
+public class EffRemoveBlocks extends Effect {
     private Expression<Location> locations;
     private Expression<View> view;
 
     static {
-        Skript.registerEffect(EffAddBlocks.class, "add blocks [from] %locations% to [view] %view%");
+        Skript.registerEffect(EffRemoveBlocks.class, "remove blocks [from] %locations% from [view] %view%");
     }
 
     @Override
@@ -41,12 +41,12 @@ public class EffAddBlocks extends Effect {
         if (positions.isEmpty() || view == null) {
             return;
         }
-        view.addBlocks(positions);
+        view.removeBlocks(positions);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
-        return "Add blocks to view with expression location(s): " + locations.toString(event, debug) + " and view: " + view.toString(event, debug);
+        return "Remove blocks to view with expression location(s): " + locations.toString(event, debug) + " and view: " + view.toString(event, debug);
     }
 
     @SuppressWarnings("unchecked")

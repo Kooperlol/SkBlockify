@@ -12,15 +12,11 @@ import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.Pattern;
 import codes.kooper.blockify.models.Stage;
 import codes.kooper.blockify.models.View;
-import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
+import codes.kooper.skblockify.utils.Utils;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Name("Create View")
 @Description("Creates a view with a name, a stage, a pattern, and a breakable flag")
@@ -42,7 +38,7 @@ public class EffCreateView extends Effect {
         String pattern = this.pattern.getSingle(event);
         boolean breakable = Boolean.TRUE.equals(this.breakable.getSingle(event));
         if (stage != null && name != null && pattern != null) {
-            stage.addView(new View(name, stage, new Pattern(parseMaterialValues(pattern)), breakable));
+            stage.addView(new View(name, stage, new Pattern(Utils.parseMaterialValues(pattern)), breakable));
         }
     }
 
@@ -59,26 +55,6 @@ public class EffCreateView extends Effect {
         pattern = (Expression<String>) expressions[2];
         breakable = (Expression<Boolean>) expressions[3];
         return (stage != null && name != null && pattern != null && breakable != null);
-    }
-
-    private Map<BlockData, Double> parseMaterialValues(String input) {
-        Map<BlockData, Double> materialValueMap = new HashMap<>();
-        String[] entries = input.split("\\|");
-        for (String entry : entries) {
-            String[] parts = entry.split(":");
-            if (parts.length != 2) {
-                continue;
-            }
-            String materialName = parts[0];
-            String valueStr = parts[1];
-            if (Material.getMaterial(materialName) == null) {
-                continue;
-            }
-            BlockData blockData = Objects.requireNonNull(Material.getMaterial(materialName)).createBlockData();
-            Double value = Double.parseDouble(valueStr);
-            materialValueMap.put(blockData, value);
-        }
-        return materialValueMap;
     }
 
 }
