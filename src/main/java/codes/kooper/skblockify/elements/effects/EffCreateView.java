@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 public class EffCreateView extends Effect {
     private Expression<Stage> stage;
     private Expression<String> name, pattern;
-    private Expression<Boolean> breakable;
+    private boolean breakable;
 
     static {
         Skript.registerEffect(EffCreateView.class, "create [a blockify] view (for|in) %stage% (with name|named) %string% with pattern %string% that (1¦is|2¦is(n't| not)) breakable");
@@ -36,7 +36,6 @@ public class EffCreateView extends Effect {
         Stage stage = this.stage.getSingle(event);
         String name = this.name.getSingle(event);
         String pattern = this.pattern.getSingle(event);
-        boolean breakable = Boolean.TRUE.equals(this.breakable.getSingle(event));
         if (stage != null && name != null && pattern != null) {
             stage.addView(new View(name, stage, new Pattern(Utils.parseMaterialValues(pattern)), breakable));
         }
@@ -44,7 +43,7 @@ public class EffCreateView extends Effect {
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean b) {
-        return "Create view with expression stage " + stage.toString(event, b) + " with name " + name.toString(event, b) + " with pattern " + pattern.toString(event, b) + " and breakable " + breakable.toString(event, b);
+        return "Create view with expression stage " + stage.toString(event, b) + " with name " + name.toString(event, b) + " with pattern " + pattern.toString(event, b) + " and breakable " + breakable;
     }
 
     @SuppressWarnings("unchecked")
@@ -53,8 +52,8 @@ public class EffCreateView extends Effect {
         stage = (Expression<Stage>) expressions[0];
         name = (Expression<String>) expressions[1];
         pattern = (Expression<String>) expressions[2];
-        breakable = (Expression<Boolean>) expressions[3];
-        return (stage != null && name != null && pattern != null && breakable != null);
+        breakable = parseResult.mark == 1;
+        return (stage != null && name != null && pattern != null);
     }
 
 }
