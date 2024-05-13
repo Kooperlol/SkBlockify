@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Add Blocks")
-@Description("Add blocks to a view")
+@Description("Add blocks to a view. Should be called asynchronously if you're adding a lot of blocks.")
 @Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
 @Since("1.0.0")
 public class EffAddBlocks extends Effect {

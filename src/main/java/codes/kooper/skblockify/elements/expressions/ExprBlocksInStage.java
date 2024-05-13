@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Name("Blocks in Stage")
-@Description("Get all blocks in a stage as block data.")
+@Description("Get all blocks in a stage as block data. Call asynchronously.")
 @Examples("set {_blocks::*} to all blocks in stage {_stage}")
 @Since("1.0.0")
 public class ExprBlocksInStage extends SimpleExpression<BlockData> {

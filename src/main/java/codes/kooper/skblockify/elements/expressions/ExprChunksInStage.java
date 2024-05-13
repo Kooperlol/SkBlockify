@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 @Name("Chunks in Stage")
 @Description("Get all chunks in a stage.")
-@Examples("set {_chunks::*} to all chunks in stage {_stage}")
+@Examples("set {_chunks::*} to all chunks in stage {_stage}. Call asynchronously if there are a lot of chunks.")
 @Since("1.0.0")
 public class ExprChunksInStage extends SimpleExpression<Chunk> {
     private Expression<Stage> stage;
