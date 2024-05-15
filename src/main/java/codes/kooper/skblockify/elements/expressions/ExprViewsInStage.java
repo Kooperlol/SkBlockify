@@ -18,26 +18,25 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-@Name("View In Stage")
-@Description("Get a view in a stage")
-@Examples("set {_view} to view \"view1\" in stage {_stage}")
-@Since("1.0.0")
-public class ExprViewInStage extends SimpleExpression<View> {
+@Name("Views In Stage")
+@Description("Get views in a stage")
+@Examples("set {_views::*} to views in stage {_stage}")
+@Since("1.0.3")
+public class ExprViewsInStage extends SimpleExpression<View> {
     private Expression<Stage> stage;
-    private Expression<String> name;
 
     static {
-        Skript.registerExpression(ExprViewInStage.class, View.class, ExpressionType.SIMPLE, "view %string% in stage %stage%");
+        Skript.registerExpression(ExprViewsInStage.class, View.class, ExpressionType.SIMPLE, "[the] views in stage %stage%");
     }
 
     @Override
     protected View @NotNull [] get(@NotNull Event event) {
-        return new View[]{Objects.requireNonNull(stage.getSingle(event)).getView(name.getSingle(event))};
+        return Objects.requireNonNull(stage.getSingle(event)).getViews().toArray(new View[0]);
     }
 
     @Override
     public boolean isSingle() {
-        return true;
+        return false;
     }
 
     @Override
@@ -47,14 +46,13 @@ public class ExprViewInStage extends SimpleExpression<View> {
 
     @Override
     public @NotNull String toString(@Nullable Event event, boolean debug) {
-        return "View in stage with name: " + name.toString(event, debug) + " and stage: " + stage.toString(event, debug);
+        return "Views in stage with stage: " + stage.toString(event, debug);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
-        name = (Expression<String>) expressions[0];
-        stage = (Expression<Stage>) expressions[1];
-        return (name != null && stage != null);
+        stage = (Expression<Stage>) expressions[0];
+        return stage != null;
     }
 }

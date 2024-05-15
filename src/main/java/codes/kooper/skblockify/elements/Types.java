@@ -8,6 +8,7 @@ import ch.njol.skript.registrations.Classes;
 import codes.kooper.blockify.Blockify;
 import codes.kooper.blockify.models.Stage;
 import codes.kooper.blockify.models.View;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -17,29 +18,24 @@ public class Types {
         Classes.registerClass(new ClassInfo<>(Stage.class, "stage")
                 .user("stages?")
                 .name("Stage")
-                .description("Represents a raid from a pillager raid on a village.")
-                .examples("on raid start A raid has started at level %omen level of event-raid%\"")
+                .description("Represents a stage in Blockify.")
+                .examples("on blockify break: broadcast \"You broke a block in the stage named %event-stage%\"")
                 .defaultExpression(new EventValueExpression<>(Stage.class))
                 .parser(new Parser<>() {
                     @Override
                     @Nullable
-                    public Stage parse(String input, ParseContext context) {
+                    public Stage parse(@NotNull String input, @NotNull ParseContext context) {
                         if (!Blockify.getInstance().getStageManager().hasStage(input)) return null;
                         return Blockify.getInstance().getStageManager().getStage(input);
                     }
 
                     @Override
-                    public boolean canParse(ParseContext context) {
-                        return true;
-                    }
-
-                    @Override
-                    public String toString(Stage o, int flags) {
+                    public @NotNull String toString(Stage o, int flags) {
                         return o.getName();
                     }
 
                     @Override
-                    public String toVariableNameString(Stage o) {
+                    public @NotNull String toVariableNameString(Stage o) {
                         return toString(o, 0);
                     }
                 }));
@@ -52,17 +48,17 @@ public class Types {
                 .defaultExpression(new EventValueExpression<>(View.class))
                 .parser(new Parser<>() {
                     @Override
-                    public boolean canParse(ParseContext context) {
+                    public boolean canParse(@NotNull ParseContext context) {
                         return false;
                     }
 
                     @Override
-                    public String toString(View o, int flags) {
+                    public @NotNull String toString(View o, int flags) {
                         return o.getName();
                     }
 
                     @Override
-                    public String toVariableNameString(View o) {
+                    public @NotNull String toVariableNameString(View o) {
                         return toString(o, 0);
                     }
                 }));

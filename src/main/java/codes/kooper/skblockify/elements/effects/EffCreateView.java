@@ -28,7 +28,7 @@ public class EffCreateView extends Effect {
     private boolean breakable;
 
     static {
-        Skript.registerEffect(EffCreateView.class, "create [a blockify] view (for|in) %stage% (with name|named) %string% with pattern %string% that (1¦is|2¦is(n't| not)) breakable");
+        Skript.registerEffect(EffCreateView.class, "create [a blockify] view (for|in) [stage] %stage% (with name|named) %string% with pattern %string% that (is|1:(isn't|is not)) breakable");
     }
 
     @Override
@@ -38,6 +38,9 @@ public class EffCreateView extends Effect {
         String pattern = this.pattern.getSingle(event);
         if (stage != null && name != null && pattern != null) {
             stage.addView(new View(name, stage, new Pattern(Utils.parseMaterialValues(pattern)), breakable));
+        } else {
+            Skript.error("Stage, name, or pattern is null while creating view!");
+            Skript.error("Stage: " + stage + " Name: " + name + " Pattern: " + pattern);
         }
     }
 
@@ -52,7 +55,7 @@ public class EffCreateView extends Effect {
         stage = (Expression<Stage>) expressions[0];
         name = (Expression<String>) expressions[1];
         pattern = (Expression<String>) expressions[2];
-        breakable = parseResult.mark == 1;
+        breakable = !parseResult.hasTag("1");
         return (stage != null && name != null && pattern != null);
     }
 

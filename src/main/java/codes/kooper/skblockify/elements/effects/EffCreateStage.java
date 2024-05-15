@@ -42,6 +42,26 @@ public class EffCreateStage extends Effect {
     @Override
     protected void execute(@NotNull Event event) {
         Set<Player> playersSet = new HashSet<>(List.of(this.players.getAll(event)));
+        if (playersSet.isEmpty()) {
+            Skript.error("Players set is empty while creating stage!");
+            return;
+        }
+        if (loc1.getSingle(event) == null || loc2.getSingle(event) == null) {
+            Skript.error("Location 1 or Location 2 is null while creating stage!");
+            return;
+        }
+        if (world.getSingle(event) == null) {
+            Skript.error("World is null while creating stage!");
+            return;
+        }
+        if (name.getSingle(event) == null) {
+            Skript.error("Name is null while creating stage!");
+            return;
+        }
+        if (Blockify.getInstance().getStageManager().getStage(name.getSingle(event)) != null) {
+            Skript.error("Stage with name " + name.getSingle(event) + " already exists!");
+            return;
+        }
         Blockify.getInstance().getStageManager().createStage(new Stage(name.getSingle(event), world.getSingle(event), BlockifyPosition.fromLocation(Objects.requireNonNull(loc1.getSingle(event))), BlockifyPosition.fromLocation(Objects.requireNonNull(loc2.getSingle(event))), new Audience(playersSet)));
     }
 

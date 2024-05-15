@@ -30,7 +30,7 @@ public class EffSetBlocks extends Effect {
     private Expression<BlockData> blockData;
 
     static {
-        Skript.registerEffect(EffSetBlocks.class, "set blocks at %locations% to %blockdata% in view %view%");
+        Skript.registerEffect(EffSetBlocks.class, "set block[s] at %locations% to %blockdata% in view %view%");
     }
 
     @Override

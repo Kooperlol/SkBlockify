@@ -27,7 +27,7 @@ public class EffRefreshBlocksToAudience extends Effect {
     private Expression<Stage> stage;
 
     static {
-        Skript.registerEffect(EffRefreshBlocksToAudience.class, "refresh blocks to audience in stage %stage% at %locations%");
+        Skript.registerEffect(EffRefreshBlocksToAudience.class, "refresh block[s] to audience in stage %stage% at %locations%");
     }
 
     @Override
@@ -49,8 +49,8 @@ public class EffRefreshBlocksToAudience extends Effect {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] expressions, int i, @NotNull Kleenean kleenean, SkriptParser.@NotNull ParseResult parseResult) {
-        locations = (Expression<Location>) expressions[0];
-        stage = (Expression<Stage>) expressions[1];
+        stage = (Expression<Stage>) expressions[0];
+        locations = (Expression<Location>) expressions[1];
         return (locations != null && stage != null);
     }
 }

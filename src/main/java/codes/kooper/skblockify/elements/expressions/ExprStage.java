@@ -25,7 +25,7 @@ public class ExprStage extends SimpleExpression<Stage> {
     private Expression<String> stage;
 
     static {
-        Skript.registerExpression(ExprStage.class, Stage.class, ExpressionType.SIMPLE, "stage %stage%");
+        Skript.registerExpression(ExprStage.class, Stage.class, ExpressionType.SIMPLE, "stage %string%");
     }
 
     @Override
