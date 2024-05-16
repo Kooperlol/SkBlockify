@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 @Examples("set {_block} to the block at player's location in view {_view}")
 @Since("1.0.0")
 public class ExprBlocksAtLocInView extends SimpleExpression<BlockData> {
-    private SimpleExpression<View> view;
-    private SimpleExpression<Location> location;
+    private Expression<View> view;
+    private Expression<Location> location;
 
     static {
-        Skript.registerExpression(ExprBlocksAtLocInView.class, BlockData.class, ExpressionType.SIMPLE, "[get] [the] block at %location% in view %view%");
+        Skript.registerExpression(ExprBlocksAtLocInView.class, BlockData.class, ExpressionType.SIMPLE, "[get] [the] [blockify] block at %location% in view %view%");
     }
 
     @Override
@@ -58,8 +58,8 @@ public class ExprBlocksAtLocInView extends SimpleExpression<BlockData> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?> @NotNull [] expressions, int i, @NotNull Kleenean kleenean, SkriptParser.@NotNull ParseResult parseResult) {
-        location = (SimpleExpression<Location>) expressions[0];
-        view = (SimpleExpression<View>) expressions[1];
+        location = (Expression<Location>) expressions[0];
+        view = (Expression<View>) expressions[1];
         return (location != null && view != null);
     }
 

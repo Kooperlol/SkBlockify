@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Examples("set {_blocks::*} to all blocks in view {_view}")
 @Since("1.0.0")
 public class ExprBlocksInView extends SimpleExpression<BlockData> {
-    private SimpleExpression<View> view;
+    private Expression<View> view;
 
     static {
         Skript.registerExpression(ExprBlocksInView.class, BlockData.class, ExpressionType.SIMPLE, "[get|get all|all] blocks in view %view%");
@@ -60,7 +60,7 @@ public class ExprBlocksInView extends SimpleExpression<BlockData> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?> @NotNull [] expressions, int i, @NotNull Kleenean kleenean, SkriptParser.@NotNull ParseResult parseResult) {
-        view = (SimpleExpression<View>) expressions[0];
+        view = (Expression<View>) expressions[0];
         return view != null;
     }
 
