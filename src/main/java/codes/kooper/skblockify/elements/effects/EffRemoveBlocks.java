@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import codes.kooper.blockify.types.BlockifyPosition;
@@ -20,10 +20,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Remove Blocks")
-@Description("Removes blocks from a view. Should be called asynchronously if removing a large amount of blocks.")
+@Description("Removes blocks from a view.")
 @Examples("on blockify break: remove blocks from (locations of diamond block in player's chunk) from view event-view")
 @Since("1.0.0")
-public class EffRemoveBlocks extends Effect {
+public class EffRemoveBlocks extends AsyncEffect {
     private Expression<Location> locations;
     private Expression<View> view;
 

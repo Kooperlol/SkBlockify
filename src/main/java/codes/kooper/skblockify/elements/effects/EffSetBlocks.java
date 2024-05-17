@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import codes.kooper.blockify.types.BlockifyPosition;
@@ -21,10 +21,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Set Blocks in View")
-@Description("Set blocks in a view with a given material. Call asynchronously if setting a large amount of blocks.")
-@Examples("set blocks at {_locations::*} to stone in view {view}")
+@Description("Set blocks in a view with a given material.")
+@Examples("set blocks at {_locations::*} to stone in view {_view}")
 @Since("1.0.0")
-public class EffSetBlocks extends Effect {
+public class EffSetBlocks extends AsyncEffect {
     private Expression<Location> locations;
     private Expression<View> view;
     private Expression<BlockData> blockData;

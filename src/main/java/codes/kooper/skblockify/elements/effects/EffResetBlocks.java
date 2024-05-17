@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import codes.kooper.blockify.types.BlockifyPosition;
@@ -20,10 +20,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Reset Blocks in View")
-@Description("Reset certain blocks in a view to a block from its pattern. Call asynchronously if you have a lot of blocks to reset.")
+@Description("Reset certain blocks in a view to a block from its pattern.")
 @Examples("reset {_locations::*} in view {_view}")
 @Since("1.0.0")
-public class EffResetBlocks extends Effect {
+public class EffResetBlocks extends AsyncEffect {
     private Expression<View> view;
     private Expression<Location> location;
 

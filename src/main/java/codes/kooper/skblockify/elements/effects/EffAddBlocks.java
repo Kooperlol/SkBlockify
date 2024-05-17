@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import codes.kooper.blockify.types.BlockifyPosition;
@@ -20,10 +20,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Name("Add Blocks")
-@Description("Add blocks to a view. Should be called asynchronously if you're adding a lot of blocks.")
+@Description("Add blocks to a view.")
 @Examples("on blockify break: add blocks from (locations of diamond block in player's chunk) to view event-view")
 @Since("1.0.0")
-public class EffAddBlocks extends Effect {
+public class EffAddBlocks extends AsyncEffect {
     private Expression<Location> locations;
     private Expression<View> view;
 

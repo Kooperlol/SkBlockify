@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.Stage;
 import codes.kooper.blockify.types.BlockifyPosition;
@@ -19,10 +19,10 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 
 @Name("Refresh Blocks To Audience")
-@Description("Refreshes blocks to audience in a stage at location(s). Should be called asynchronously if you're refreshing a large amount of blocks.")
+@Description("Refreshes blocks to audience in a stage at location(s).")
 @Examples("refresh blocks to audience in stage {_stage} at {_locations::*}")
 @Since("1.0.0")
-public class EffRefreshBlocksToAudience extends Effect {
+public class EffRefreshBlocksToAudience extends AsyncEffect {
     private Expression<Location> locations;
     private Expression<Stage> stage;
 

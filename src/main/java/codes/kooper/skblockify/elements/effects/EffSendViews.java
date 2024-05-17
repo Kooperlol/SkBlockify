@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.Blockify;
 import codes.kooper.blockify.models.Stage;
@@ -18,10 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Send Views")
-@Description("Sends all views to player(s) in the stage's audience. Call asynchronously.")
+@Description("Sends all views to player(s) in the stage's audience.")
 @Examples({"send all views to {_player} of {_stage}"})
 @Since("1.0.0")
-public class EffSendViews extends Effect {
+public class EffSendViews extends AsyncEffect {
     private Expression<Stage> stage;
     private Expression<Player> player;
 

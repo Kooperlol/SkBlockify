@@ -5,9 +5,9 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.AsyncEffect;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.View;
 import org.bukkit.event.Event;
@@ -16,10 +16,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @Name("Reset All Blocks in View")
-@Description("Reset all blocks in a view to a block from its pattern. Call Asynchronously")
+@Description("Reset all blocks in a view to a block from its pattern.")
 @Examples("reset blocks in view {_view}")
 @Since("1.0.0")
-public class EffResetAllBlocks extends Effect {
+public class EffResetAllBlocks extends AsyncEffect {
     private Expression<View> view;
 
     static {
