@@ -1,25 +1,3 @@
-# Note this uses skript-reflect for async stuff. This is recommended to use for anything marked with "use async." You can do this
-# however you please, but make sure for performance it is async when recommended. Also, use thread.sleep in async sections instead of
-# wait x seconds, etc. This is because that does a callback sync which defeats the whole point of an async section.
-
-# core.sk
-
-on load:
-    # Create crop locations
-    create new section stored in {-section::CropLocations}:
-        set {-crop-loc1} to location(141, 137, 192, world("spawn"))
-        set {-crop-loc2} to location(35, 122, 48, world("spawn"))
-        return all blocks within {-crop-loc1} and {-crop-loc2} where [block below input is farmland]
-    run section {-section::CropLocations} async and store the result in {-crop-locations::*} and wait
-
-    # Show blocks
-    create new section with {_stage} stored in {-section::ShowStage}:
-        send blocks to audience in stage {_stage}
-
-    # Add crops to view
-    create new section with {_locations::*} and {_view} stored in {-section::AddCrops}:
-        add blocks from {_locations::*} to view {_view}
-
 # Loading stage
 on join:
     if stage "farm-%uuid of player%" is set:
@@ -29,14 +7,10 @@ on join:
     set chunks sent per tick to 20 for stage {_stage}
     create view for stage {_stage} with name "farm" with pattern "WHEAT[AGE=7]:1.0" that is breakable
     set {_view} to view "farm" in stage {_stage}
-    run section {-section::AddCrops} async with {-crop-locations::*} and {_view} and wait
-    run section {-section::ShowStage} async with {_stage}
+    add blocks from {_locations::*} to view {_view}
+    send blocks to audience in stage {_stage}
 
 # harvesting.sk
-    
-import:
-    java.lang.Thread
-
 on load:
     # Regrow a crop
     create new section with {_location}, {_blockdata}, {_view}, and {_stage} stored in {-section::CropRegrow}:
@@ -44,20 +18,20 @@ on load:
             set block data tag "age" of {_blockdata} to loop-value
             set block at {_location} to {_blockdata} in view {_view}
             refresh block to audience in stage {_stage} at {_location}
-            Thread.sleep(300)
+            wait 1 tick
     # Regrow crops
     create new section with {_locations::*}, {_blockdata}, {_view}, and {_stage} stored in {-section::CropsRegrow}:
         loop 7 times:
             set block data tag "age" of {_blockdata} to loop-value
             set blocks at {_locations::*} to {_blockdata} in view {_view}
             refresh blocks to audience in stage {_stage} at {_locations::*}
-            Thread.sleep(300)
+            wait 1 tick
     # Set blocks to air & regrow
     create new section with {_locations::*}, {_blockdata}, {_view}, and {_stage} stored in {-section::SetBlocksToAir}:
         set blocks at {_locations::*} to air in view {_view}
         refresh blocks to audience in stage {_stage} at {_locations::*}
-        Thread.sleep(5000)
-        run section {-section::CropsRegrow} async with {_locations::*}, {_blockdata}, {_view}, and {_stage}
+        wait 5 seconds
+        run section {-section::CropsRegrow} with {_locations::*}, {_blockdata}, {_view}, and {_stage}
     # Explosive
     create new section with {_player}, {_location}, {_blockdata}, {_view}, and {_stage} stored in {-section::Explosive}:
         set {_explosion} to packets_randomEntityId()
@@ -68,7 +42,7 @@ on load:
         packets_entityMetadata({_player}, {_explosion}, {_metadata})
         wait 2 seconds
         playSound("entity.generic.explode", {_player})
-        run section {-section::SetBlocksToAir} async with (blocks in radius 3 of {_location}), {_blockdata}, {_view}, and {_stage}
+        run section {-section::SetBlocksToAir} with (blocks in radius 3 of {_location}), {_blockdata}, {_view}, and {_stage}
         packets_destroyEntity({_player}, {_explosion})
 
 # Delete stage
@@ -97,8 +71,12 @@ on blockify break:
         {_explosive} > 0
         getProc(player's tool, "explosive")
     then:
-        run section {-section::Explosive} async with player, event-location, event-blockdata, event-view, and event-stage
+        run section {-section::Explosive} with player, event-location, event-blockdata, event-view, and event-stage
 
     # Regrow crop
     wait 5 seconds
-    run section {-section::CropRegrow} async with event-location, event-blockdata, event-view, and event-stage
+    loop 7 times:
+        set block data tag "age" of event-blockdata to loop-value
+        set block at event-location to event-blockdata in view event-view
+        refresh block to audience in stage event-stage at event-location
+        wait 1 tick
