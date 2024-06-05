@@ -1,5 +1,6 @@
 package codes.kooper.skblockify.elements.effects;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -21,6 +22,10 @@ import javax.annotation.Nullable;
 public class EffSetAudienceHidden extends Effect {
     private Expression<Stage> stage;
     private Expression<Boolean> hidden;
+
+    static {
+        Skript.registerEffect(EffSetAudienceHidden.class, "set audience hidden of %stage% to %boolean%");
+    }
 
     @Override
     protected void execute(@NotNull Event event) {

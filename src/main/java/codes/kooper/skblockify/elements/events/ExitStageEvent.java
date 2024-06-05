@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 public class ExitStageEvent {
     static {
         Skript.registerEvent(
-                "Blockify Exist Stage",
+                "Blockify Exit Stage",
                 SimpleEvent.class,
                 PlayerExitStageEvent.class,
                 "[blockify] player exit stage"
