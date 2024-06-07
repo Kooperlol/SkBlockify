@@ -62,7 +62,7 @@ public class EffCreateStage extends Effect {
             Skript.error("Stage with name " + name.getSingle(event) + " already exists!");
             return;
         }
-        Blockify.getInstance().getStageManager().createStage(new Stage(name.getSingle(event), world.getSingle(event), BlockifyPosition.fromLocation(Objects.requireNonNull(loc1.getSingle(event))), BlockifyPosition.fromLocation(Objects.requireNonNull(loc2.getSingle(event))), new Audience(playersSet)));
+        Blockify.getInstance().getStageManager().createStage(new Stage(name.getSingle(event), world.getSingle(event), BlockifyPosition.fromLocation(Objects.requireNonNull(loc1.getSingle(event))), BlockifyPosition.fromLocation(Objects.requireNonNull(loc2.getSingle(event))), Audience.fromPlayers(playersSet)));
     }
 
     @Override
