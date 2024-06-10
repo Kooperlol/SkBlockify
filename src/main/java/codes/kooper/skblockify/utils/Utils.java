@@ -18,7 +18,7 @@ public class Utils {
             if (parts.length != 2) {
                 continue;
             }
-            String materialName = parts[0].replaceAll("\\[AGE=\\d+]", "");
+            String materialName = parts[0].replaceAll("\\[AGE=\\d+]", "").toUpperCase();
             String valueStr = parts[1];
             if (Material.getMaterial(materialName) == null) {
                 continue;

@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'codes.kooper'
-version = '1.0.6-beta'
+version = '1.0.7-beta'
 
 repositories {
     mavenCentral()

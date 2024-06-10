@@ -36,7 +36,7 @@ public class ExprPlayerMiningSpeed extends SimpleExpression<Float> {
         if (player == null || stage == null) {
             return new Float[0];
         }
-        return new Float[] {stage.getAudience().getMiningSpeeds().get(player)};
+        return new Float[] {stage.getAudience().getMiningSpeeds().get(player.getUniqueId())};
     }
 
     @Override

@@ -37,7 +37,7 @@ public class EffHideViews extends Effect {
             return;
         }
         for (Player p : player) {
-            if (!stage.getAudience().getPlayers().contains(p)) continue;
+            if (!stage.getAudience().getPlayers().contains(p.getUniqueId())) continue;
             Blockify.getInstance().getBlockChangeManager().hideViews(stage, p);
         }
     }

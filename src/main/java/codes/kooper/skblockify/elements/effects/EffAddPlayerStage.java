@@ -25,7 +25,7 @@ public class EffAddPlayerStage extends Effect {
     private Expression<Player> player;
 
     static {
-        Skript.registerEffect(EffAddPlayerStage.class, "add %player% to audience of stage %stage%", "add %player% to stage %stage%'s audience", "add %player% to stage %stage%");
+        Skript.registerEffect(EffAddPlayerStage.class, "add %player% to audience of [stage] %stage%", "add %player% to [stage] %stage%'s audience", "add %player% to stage %stage%");
     }
 
     @Override

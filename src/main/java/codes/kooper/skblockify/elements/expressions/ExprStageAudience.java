@@ -11,6 +11,8 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import codes.kooper.blockify.models.Stage;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
@@ -21,18 +23,18 @@ import javax.annotation.Nullable;
 @Description("Gets the players in a stage.")
 @Examples("set {_players::*} to audience of {_stage}")
 @Since("1.0.0")
-public class ExprStageAudience extends SimpleExpression<Player> {
+public class ExprStageAudience extends SimpleExpression<OfflinePlayer> {
     private Expression<Stage> stage;
 
     static {
-        Skript.registerExpression(ExprStageAudience.class, Player.class, ExpressionType.SIMPLE, "[the] audience of %stage%");
+        Skript.registerExpression(ExprStageAudience.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] audience of %stage%");
     }
 
     @Override
-    protected Player @NotNull [] get(@NotNull Event event) {
+    protected OfflinePlayer @NotNull [] get(@NotNull Event event) {
         Stage stage = this.stage.getSingle(event);
         if (stage == null) return new Player[0];
-        return stage.getAudience().getPlayers().toArray(new Player[0]);
+        return stage.getAudience().getPlayers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ExprStageAudience extends SimpleExpression<Player> {
     }
 
     @Override
-    public @NotNull Class<? extends Player> getReturnType() {
+    public @NotNull Class<? extends OfflinePlayer> getReturnType() {
         return Player.class;
     }
 

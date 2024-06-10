@@ -1,6 +1,6 @@
 name: SkBlockify
-version: '1.0.6-beta'
+version: '1.0.7-beta'
 main: codes.kooper.skblockify.SkBlockify
-api-version: '1.20'
+api-version: '1.19'
 depend:
   - Blockify
