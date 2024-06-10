@@ -25,17 +25,17 @@ public class EffRemovePlayerStage extends Effect {
     private Expression<Player> player;
 
     static {
-        Skript.registerEffect(EffRemovePlayerStage.class, "remove %player% from audience of stage %stage%", "remove %player% from stage %stage%'s audience", "remove %player% from stage %stage%");
+        Skript.registerEffect(EffRemovePlayerStage.class, "remove %player% from stage %stage%");
     }
 
     @Override
     protected void execute(@NotNull Event event) {
         Stage stage = this.stage.getSingle(event);
-        Player[] player = this.player.getAll(event);
+        Player[] players = this.player.getAll(event);
         if (stage == null) {
             return;
         }
-        for (Player p : player) {
+        for (Player p : players) {
             stage.getAudience().removePlayer(p);
         }
     }
